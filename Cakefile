@@ -20,6 +20,8 @@ task 'build', 'Build coffee and readme', ->
 	# Coffee
 	kit.spawn 'coffee', ['-cb', main_cs]
 	.then ->
+		kit.remove 'temp.js'
+	.then ->
 		kit.move 'coss.js', 'temp.js'
 	.then ->
 		kit.spawn 'browserify', ['temp.js', '-o', 'coss.js']
