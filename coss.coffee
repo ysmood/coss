@@ -1,5 +1,5 @@
 ###*
- * The core compiler of coss.
+ * The core compiler of coss. Supports nested css and '&' self sugar.
  * @param  {Object | Array} source The source data to compile.
  * @param  {String} indent Default is 4 spaces.
  * @return {String} The compiled code.
@@ -19,6 +19,10 @@
  * 	[level()
  * 		['background', 'red']
  * 		['border', '1px solid #fff']
+ *
+ * 		['&:hover'
+ * 			['background', 'blue']
+ * 		]
  *
  * 		[level()
  * 			['margin', '1px']
@@ -55,7 +59,10 @@ coss = (source, indent = '    ') ->
 		parents += ' '
 		for sel, leaf of node
 			if typeof leaf == 'object'
-				children += compile_obj leaf, parents + sel
+				if sel.charAt(0) == '&'
+					children += compile_obj leaf, parents[0...-1] + sel[1..]
+				else
+					children += compile_obj leaf, parents + sel
 			else
 				props += "#{indent}#{sel}: #{leaf};\n"
 
@@ -73,7 +80,12 @@ coss = (source, indent = '    ') ->
 		for leaf in node[1..]
 			defs = leaf[1]
 			if typeof defs == 'object'
-				children += compile_arr leaf, parents
+				sel = leaf[0]
+				if sel.charAt(0) == '&'
+					leaf[0] = sel[1..]
+					children += compile_arr leaf, parents[0...-1]
+				else
+					children += compile_arr leaf, parents
 			else
 				props += "#{indent}#{leaf[0]}: #{defs};\n"
 
