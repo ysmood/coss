@@ -22,11 +22,9 @@ task 'build', 'Build coffee and readme', ->
 	.then ->
 		kit.remove 'temp.js'
 	.then ->
-		kit.move 'coss.js', 'temp.js'
+		kit.spawn 'browserify', ['coss.js', '-o', 'temp.js']
 	.then ->
-		kit.spawn 'browserify', ['temp.js', '-o', 'coss.js']
-	.then ->
-		kit.spawn 'uglifyjs', ['coss.js', '-o', 'coss.min.js']
+		kit.spawn 'uglifyjs', ['temp.js', '-o', 'coss.min.js']
 
 	# Readme
 	kit.readFile main_cs
