@@ -26,9 +26,8 @@
   },
   "homepage": "https://github.com/ysmood/coss",
   "devDependencies": {
-    "browserify": "^6.1.0",
     "coffee-script": "^1.8.0",
-    "nobone": "^0.8.2",
+    "nobone": "^0.8.3",
     "uglify-js": "^2.4.15"
   }
 }
