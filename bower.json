@@ -1,0 +1,25 @@
+{
+  "name": "coss",
+  "main": "coss.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/ysmood/coss",
+  "authors": [
+    "http://ysmood.org"
+  ],
+  "description": "A simple compiler that compiles js to css.",
+  "keywords": [
+    "js",
+    "css",
+    "compiler"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "temp.js",
+    "readme.ejs.md"
+  ]
+}
