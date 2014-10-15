@@ -118,7 +118,7 @@ do ->
 			type_error()
 
 	# AMD Support
-	if typeof module == "object" and module and typeof module.exports == "object"
+	if typeof module == "object" and typeof module.exports == "object"
 		module.exports = coss
 	else
 		if typeof define == "function" and define.amd
