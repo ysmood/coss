@@ -1,0 +1,32 @@
+{
+  "name": "coss",
+  "version": "0.0.1",
+  "description": "A simple compiler that compiles js to css.",
+  "main": "coss.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ysmood/coss.git"
+  },
+  "keywords": [
+    "js",
+    "css",
+    "compiler"
+  ],
+  "author": "http://ysmood.org",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ysmood/coss/issues"
+  },
+  "homepage": "https://github.com/ysmood/coss",
+  "devDependencies": {
+    "browserify": "^6.1.0",
+    "coffee-script": "^1.8.0",
+    "nobone": "^0.8.2"
+  }
+}
