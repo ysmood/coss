@@ -56,18 +56,17 @@ coss = (source, indent = '    ') ->
 		props = ''
 		children = ''
 
-		parents += ' '
 		for sel, leaf of node
 			if typeof leaf == 'object'
 				if sel.charAt(0) == '&'
-					children += compile_obj leaf, parents[0...-1] + sel[1..]
+					children += compile_obj leaf, parents + sel[1..]
 				else
-					children += compile_obj leaf, parents + sel
+					children += compile_obj leaf, parents + ' ' + sel
 			else
 				props += "#{indent}#{sel}: #{leaf};\n"
 
 		"""
-		#{parents}{
+		#{parents} {
 		#{props}}
 		#{children}
 		"""
@@ -76,21 +75,21 @@ coss = (source, indent = '    ') ->
 		props = ''
 		children = ''
 
-		parents += node[0] + ' '
+		parents += node[0]
 		for leaf in node[1..]
 			defs = leaf[1]
 			if typeof defs == 'object'
 				sel = leaf[0]
 				if sel.charAt(0) == '&'
 					leaf[0] = sel[1..]
-					children += compile_arr leaf, parents[0...-1]
-				else
 					children += compile_arr leaf, parents
+				else
+					children += compile_arr leaf, parents + ' '
 			else
 				props += "#{indent}#{leaf[0]}: #{defs};\n"
 
 		"""
-		#{parents}{
+		#{parents} {
 		#{props}}
 		#{children}
 		"""

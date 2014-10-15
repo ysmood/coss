@@ -1,7 +1,7 @@
 {
   "name": "coss",
   "main": "coss.min.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/ysmood/coss",
   "authors": [
     "http://ysmood.org"

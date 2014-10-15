@@ -64,26 +64,25 @@ coss = function(source, indent) {
     var children, leaf, props, sel;
     props = '';
     children = '';
-    parents += ' ';
     for (sel in node) {
       leaf = node[sel];
       if (typeof leaf === 'object') {
         if (sel.charAt(0) === '&') {
-          children += compile_obj(leaf, parents.slice(0, -1) + sel.slice(1));
+          children += compile_obj(leaf, parents + sel.slice(1));
         } else {
-          children += compile_obj(leaf, parents + sel);
+          children += compile_obj(leaf, parents + ' ' + sel);
         }
       } else {
         props += "" + indent + sel + ": " + leaf + ";\n";
       }
     }
-    return "" + parents + "{\n" + props + "}\n" + children;
+    return "" + parents + " {\n" + props + "}\n" + children;
   };
   compile_arr = function(node, parents) {
     var children, defs, leaf, props, sel, _i, _len, _ref;
     props = '';
     children = '';
-    parents += node[0] + ' ';
+    parents += node[0];
     _ref = node.slice(1);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       leaf = _ref[_i];
@@ -92,15 +91,15 @@ coss = function(source, indent) {
         sel = leaf[0];
         if (sel.charAt(0) === '&') {
           leaf[0] = sel.slice(1);
-          children += compile_arr(leaf, parents.slice(0, -1));
-        } else {
           children += compile_arr(leaf, parents);
+        } else {
+          children += compile_arr(leaf, parents + ' ');
         }
       } else {
         props += "" + indent + leaf[0] + ": " + defs + ";\n";
       }
     }
-    return "" + parents + "{\n" + props + "}\n" + children;
+    return "" + parents + " {\n" + props + "}\n" + children;
   };
   type_error = function() {
     throw new Error('The type of source is incorrect.');
