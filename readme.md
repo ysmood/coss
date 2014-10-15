@@ -41,6 +41,10 @@ coss [
 		['background', 'red']
 		['border', '1px solid #fff']
 
+		['&:hover'
+			['background', 'blue']
+		]
+
 		[level()
 			['margin', '1px']
 

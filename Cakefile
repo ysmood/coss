@@ -1,11 +1,13 @@
 {kit} = require 'nobone'
 {_} = kit
 
+main_cs = 'coss.coffee'
+
 task 'dev', 'Dev', ->
 	kit.monitor_app {
 		bin: 'coffee'
 		watch_list: [
-			'coss.coffee'
+			main_cs
 			'test/basic.coffee'
 		]
 		args: ['test/basic.coffee']
@@ -14,9 +16,18 @@ task 'dev', 'Dev', ->
 task 'test', 'Test', ->
 	kit.spawn 'coffee', ['test/basic.coffee']
 
+task 'build', 'Build coffee and readme', ->
+	# Coffee
+	kit.spawn 'coffee', ['-cb', main_cs]
+	.then ->
+		kit.move 'coss.js', 'temp.js'
+	.then ->
+		kit.spawn 'browserify', ['temp.js', '-o', 'coss.js']
+	.then ->
+		kit.spawn 'uglifyjs', ['coss.js', '-o', 'coss.min.js']
 
-task 'build', 'Build readme', ->
-	kit.readFile 'coss.coffee'
+	# Readme
+	kit.readFile main_cs
 	.then (str) ->
 		parsed = kit.parse_comment '', str
 		method_str = "## #{parsed[0].name}\n\n"
